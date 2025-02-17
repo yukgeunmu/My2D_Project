@@ -32,7 +32,7 @@ public class PlayerController : BaseController
         {
             lookDirection = lookDirection.normalized;
         }
-
     }
+
 
 }

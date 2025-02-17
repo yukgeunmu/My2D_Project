@@ -13,13 +13,18 @@ public class BaseController : MonoBehaviour
     protected Vector2 movementDirection = Vector2.zero;
     public Vector2 MovementDirection { get => movementDirection; }
 
+    protected float jumpForce = 5f;
+    public float JumpForce { get => jumpForce; }
+
     protected Vector2 lookDirection = Vector2.zero;
     public Vector2 LookDirection { get => lookDirection; }
 
     private Vector2 knockback = Vector2.zero;
     private float knockbackDuration = 0.0f;
 
-   protected virtual void Awake()
+    private bool isJumping = false;
+
+    protected virtual void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
     }
@@ -33,6 +38,11 @@ public class BaseController : MonoBehaviour
     {
         HandleAction();
         Rotate(lookDirection);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(JumpEffect());
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -48,6 +58,7 @@ public class BaseController : MonoBehaviour
     {
 
     }
+
 
     private void Movement(Vector2 direction)
     {
@@ -85,5 +96,45 @@ public class BaseController : MonoBehaviour
     }
 
     
+    IEnumerator JumpEffect()
+    {
+
+        if (isJumping)
+            yield break; // 이미 점프 중이면 실행하지 않음
+
+        isJumping = true;
+
+        float jumpHeight = 0.5f;
+        float jumpDuration = 0.2f;
+        Vector3 originalPos = transform.position;
+        Vector3 jumpPos = originalPos + new Vector3(0, jumpHeight, 0);
+
+        // 위로 이동
+        float t = 0;
+        while (t < 1)
+        {
+            transform.position = Vector3.Lerp(originalPos, jumpPos, t);
+            t += Time.deltaTime / jumpDuration;
+            yield return null;
+        }
+
+        // 아래로 이동
+        t = 0;
+        while (t < 1)
+        {
+            transform.position = Vector3.Lerp(jumpPos, originalPos, t);
+            t += Time.deltaTime / jumpDuration;
+            yield return null;
+        }
+
+        transform.position = originalPos;
+
+        isJumping = false;
+    }
+
+ 
+
+
+
 
 }
