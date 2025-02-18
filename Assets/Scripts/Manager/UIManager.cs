@@ -23,8 +23,11 @@ public class UIManager : MonoBehaviour
 
     public GameObject gameOverPanel;
 
+    private static bool isFirst = true;
+
     private void Awake()
     {
+
         homeUI = GetComponentInChildren<HoemUI>(true);
         homeUI.Init(this);
         gameUI = GetComponentInChildren<GameUI>(true);
@@ -32,18 +35,29 @@ public class UIManager : MonoBehaviour
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         gameOverUI.Init(this);
 
-        ChangeState(UIState.Home);
+        if(isFirst)
+        {
+            ChangeState(UIState.Home);
+            isFirst = false;
+        }
+        else
+        {
+            ChangeState(UIState.Game);
+            PlayerFlappy player = FindObjectOfType<PlayerFlappy>();
+            player.isTime = true;
+        }
+
     }
 
     public void SetPlayGame()
     {
-        ChangeState(UIState.Game);    
+        ChangeState(UIState.Game); 
     }
 
     public void SetGameOver()
     {
         ChangeState(UIState.GameOver);
-        return;
+
     }
 
 

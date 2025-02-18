@@ -14,11 +14,9 @@ public abstract class BaseUI : MonoBehaviour
     protected abstract UIState GetUIState();
     public void SetActive(UIState state)
     {
-
-        Debug.Log(GetUIState());
-        Debug.Log(state);
+        Debug.Log("GetUIState(): " + GetUIState());
+        Debug.Log("state: " + state);
         this.gameObject.SetActive(GetUIState() == state);
-
     }
 
 }

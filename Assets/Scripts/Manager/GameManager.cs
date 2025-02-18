@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager { get => uiManager; }
     public static GameManager Instance { get => gameManager; }
 
+    public bool isFirst = false;
+
     public int cureentScore = 0;
 
 

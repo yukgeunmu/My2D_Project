@@ -5618,7 +5618,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1715547094}
         m_TargetAssemblyTypeName: StartButton, Assembly-CSharp
-        m_MethodName: Restart
+        m_MethodName: FlapBirdStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6501,6 +6501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af22ec0e6c144824cb64e56e4b5d1c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFirst: 0
   cureentScore: 0
 --- !u!1001 &6928621784992321139
 PrefabInstance:
