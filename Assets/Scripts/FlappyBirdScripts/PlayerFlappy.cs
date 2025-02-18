@@ -45,7 +45,7 @@ public class PlayerFlappy : MonoBehaviour
         {
             if (deathCooldown <= 0 && Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
-                gameManager.RestartGame();     
+                gameManager.RestartGame();
             }
             else
             {

@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void GameOver()
     {
         Debug.Log("Game OVer");
@@ -32,13 +31,14 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("FlappyBirdScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void AddScore(int score)
     {
         cureentScore += score;
     }
+
 
 
 }

@@ -16,9 +16,13 @@ public class Obstacle : MonoBehaviour
 
     [SerializeField] private float widthPadding = 4f;
 
+    GameManager gameManager;
+
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
+
         if (topObject == null)
             Debug.LogError("TopObject is Null");
 
@@ -41,6 +45,14 @@ public class Obstacle : MonoBehaviour
         transform.position = placePosition;
 
         return placePosition;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        PlayerFlappy player = collision.GetComponent<PlayerFlappy>();
+        if (player != null)
+            gameManager.AddScore(1);
+            
     }
 
 
