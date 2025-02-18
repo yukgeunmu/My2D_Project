@@ -23,6 +23,8 @@ public class Obstacle : MonoBehaviour
     {
         gameManager = GameManager.Instance;
 
+
+
         if (topObject == null)
             Debug.LogError("TopObject is Null");
 

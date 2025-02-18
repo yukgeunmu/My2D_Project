@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerFlappy : MonoBehaviour
@@ -21,12 +22,23 @@ public class PlayerFlappy : MonoBehaviour
 
     public bool godMode = false;
 
+    public GameUI gameUI;
+
     public GameManager gameManager = null;
+
+    public bool isTime = false;
+
+    private bool isGameOver = false;
+
+
 
 
     private void Start()
     {
+        Time.timeScale = 0;
+
         gameManager = GameManager.Instance;
+        gameManager.cureentScore = 0;
 
         animator = transform.GetComponentInChildren<Animator>();
         _rigidbody = transform.GetComponent<Rigidbody2D>();
@@ -40,19 +52,24 @@ public class PlayerFlappy : MonoBehaviour
 
 
     private void Update()
-    {
+    {    
+        if (isTime)
+            Time.timeScale = 1;
+
         if (isDead)
         {
-            if (deathCooldown <= 0 && Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if (deathCooldown <= 0 && !isGameOver)
             {
-                gameManager.RestartGame();
+                isGameOver = true;
+                gameManager.UIManager.SetGameOver();
+                Time.timeScale = 0;                           
             }
             else
             {
                 deathCooldown -= Time.deltaTime;
             }
         }
-        else /*isFlap = Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ? true : false;     */
+        else
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
@@ -98,7 +115,6 @@ public class PlayerFlappy : MonoBehaviour
         isDead = true;
         deathCooldown = 1f;
 
-        gameManager.GameOver();
     }
 
 }

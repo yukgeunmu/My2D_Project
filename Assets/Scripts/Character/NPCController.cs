@@ -8,6 +8,7 @@ public class NPCController : MonoBehaviour
 
     private void Awake()
     {
+        panel = transform.Find("EngelPanel").GetComponent<GameObject>();
         if (panel == null)
             Debug.LogError("Panal is Null");
     }

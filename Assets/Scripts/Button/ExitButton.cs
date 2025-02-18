@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitButton : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class ExitButton : MonoBehaviour
     public void CrossePanel()
     {
         panel.SetActive(false);
+    }
+
+    public void MainScene()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 
 }
