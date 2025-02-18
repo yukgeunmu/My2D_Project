@@ -1806,7 +1806,8 @@ MonoBehaviour:
   flapForce: 6
   forwardSpeed: 3
   isDead: 0
-  godMode: 1
+  godMode: 0
+  gameManager: {fileID: 0}
 --- !u!4 &865539705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8048861714761196806, guid: 96cd248fe33dee748a3b6253925c4eff,

@@ -14,17 +14,20 @@ public class PlayerFlappy : MonoBehaviour
     [SerializeField] private float forwardSpeed = 3f;
     public float ForwardSpeed { get => forwardSpeed; }
 
-    [SerializeField] private bool isDead = false;
-    public bool IsDead { get => isDead; }
+    public bool isDead = false;
     
     float deathCooldown = 0f;
     bool isFlap = false;
 
     public bool godMode = false;
 
+    public GameManager gameManager = null;
+
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
+
         animator = transform.GetComponentInChildren<Animator>();
         _rigidbody = transform.GetComponent<Rigidbody2D>();
 
@@ -40,16 +43,13 @@ public class PlayerFlappy : MonoBehaviour
     {
         if (isDead)
         {
-            if (deathCooldown <= 0)
+            if (deathCooldown <= 0 && Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-                {
-
-                    GameManager.Instance.RestartGame();
-
-                }
-                else deathCooldown -= Time.deltaTime;
-
+                gameManager.RestartGame();     
+            }
+            else
+            {
+                deathCooldown -= Time.deltaTime;
             }
         }
         else /*isFlap = Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ? true : false;     */
@@ -91,14 +91,14 @@ public class PlayerFlappy : MonoBehaviour
     {
         if (godMode)
             return;
-        if (isDead)
+        if(isDead)
             return;
 
         animator.SetInteger("IsDie", 1);
         isDead = true;
         deathCooldown = 1f;
 
-        GameManager.Instance.GameOver();
+        gameManager.GameOver();
     }
 
 }

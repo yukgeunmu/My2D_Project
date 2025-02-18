@@ -1,27 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
-    public static GameManager Instance;
+    static GameManager gameManager;
+    public static GameManager Instance { get => gameManager; }
 
     private int cureentScore = 0;
 
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        gameManager = this;
     }
+
 
     public void GameOver()
     {
@@ -37,11 +31,6 @@ public class GameManager : MonoBehaviour
     {
         cureentScore += score;
     }
-
-   
-
-
-
 
 
 }
