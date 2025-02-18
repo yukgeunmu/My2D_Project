@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
 
     public int cureentScore = 0;
 
+    private int bestScore = 0;
+    private const string BestScoreKey = "BestScore";
+
 
     private void Awake()
     {
@@ -30,13 +33,29 @@ public class GameManager : MonoBehaviour
         else if(gameManager != null)
         {
             Destroy(gameObject);
-        }     
+        }
+
+        bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
     }
 
     private void Start()
     {
-    
+      
     }
+
+    public void UpdateScore()
+    {
+        if(bestScore < cureentScore)
+        {
+            bestScore = cureentScore;
+        }
+
+        PlayerPrefs.SetInt(BestScoreKey, bestScore);
+
+        uiManager.gameOverUI.SetScore(cureentScore, bestScore);
+    }
+
+
 
     public void StartGame()
     {
@@ -50,6 +69,8 @@ public class GameManager : MonoBehaviour
         uiManager.gameUI.SetUI(cureentScore);
         
     }
+
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // 새 씬에서 UIManager를 다시 찾아서 할당

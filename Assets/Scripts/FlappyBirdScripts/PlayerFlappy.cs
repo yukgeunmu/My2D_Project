@@ -62,6 +62,7 @@ public class PlayerFlappy : MonoBehaviour
             {
                 isGameOver = true;
                 gameManager.UIManager.SetGameOver();
+                gameManager.UpdateScore();
                 Time.timeScale = 0;                           
             }
             else
