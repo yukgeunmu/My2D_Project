@@ -5,21 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    static GameManager gameManager;
 
     public static GameManager Instance;
+
+    private int cureentScore = 0;
 
     private void Awake()
     {
         if(Instance == null)
         {
-            Instance = gameManager;
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(gameManager.gameObject);
+            Destroy(gameObject);
         }
     }
+
+    public void GameOver()
+    {
+        Debug.Log("Game OVer");
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("FlappyBirdScene");
+    }
+
+    public void AddScore(int score)
+    {
+        cureentScore += score;
+    }
+
+   
+
+
 
 
 

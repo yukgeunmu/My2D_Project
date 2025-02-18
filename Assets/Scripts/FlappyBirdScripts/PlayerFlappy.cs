@@ -22,6 +22,7 @@ public class PlayerFlappy : MonoBehaviour
 
     public bool godMode = false;
 
+
     private void Start()
     {
         animator = transform.GetComponentInChildren<Animator>();
@@ -43,7 +44,8 @@ public class PlayerFlappy : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    
+
+                    GameManager.Instance.RestartGame();
 
                 }
                 else deathCooldown -= Time.deltaTime;
@@ -95,6 +97,8 @@ public class PlayerFlappy : MonoBehaviour
         animator.SetInteger("IsDie", 1);
         isDead = true;
         deathCooldown = 1f;
+
+        GameManager.Instance.GameOver();
     }
 
 }
