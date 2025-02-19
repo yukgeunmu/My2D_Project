@@ -24,6 +24,7 @@ public class AnimationHandler : MonoBehaviour
         animator.SetBool(IsDamage, true);
     }
 
+    //¹«Àû
     public void InvincibilityEnd()
     {
         animator.SetBool(IsDamage, false);
