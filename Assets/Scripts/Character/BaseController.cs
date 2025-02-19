@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseController : MonoBehaviour
 {
     protected Rigidbody2D _rigidbody;
+    protected Animator animator;
 
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private Transform weaponPivor;
@@ -26,7 +27,13 @@ public class BaseController : MonoBehaviour
 
     protected virtual void Awake()
     {
+       
         _rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
+        if(animator == null)
+        {
+            Debug.Log("애니메이터 안 들어감");
+        }
     }
 
     protected virtual void Start()

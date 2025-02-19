@@ -18,7 +18,11 @@ public class PlayerController : BaseController
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+  
         movementDirection = new Vector2(horizontal, vertical).normalized;
+
+        if (movementDirection.magnitude > 0) animator.SetInteger("IsRun", 1);
+        else animator.SetInteger("IsRun", 0);
 
         Vector2 mousePosition = Input.mousePosition;
         Vector2 worldPos = camera.ScreenToWorldPoint(mousePosition);
