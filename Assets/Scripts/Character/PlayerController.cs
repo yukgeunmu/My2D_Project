@@ -21,9 +21,6 @@ public class PlayerController : BaseController
   
         movementDirection = new Vector2(horizontal, vertical).normalized;
 
-        if (movementDirection.magnitude > 0) animator.SetInteger("IsRun", 1);
-        else animator.SetInteger("IsRun", 0);
-
         Vector2 mousePosition = Input.mousePosition;
         Vector2 worldPos = camera.ScreenToWorldPoint(mousePosition);
         lookDirection = (worldPos - (Vector2)transform.position);

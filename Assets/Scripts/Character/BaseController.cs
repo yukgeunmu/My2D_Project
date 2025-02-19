@@ -5,7 +5,8 @@ using UnityEngine;
 public class BaseController : MonoBehaviour
 {
     protected Rigidbody2D _rigidbody;
-    protected Animator animator;
+    protected AnimationHandler animationHandler;
+    protected StatHandler statHandler;
 
     [SerializeField] private SpriteRenderer characterRenderer;
     [SerializeField] private Transform weaponPivor;
@@ -29,11 +30,8 @@ public class BaseController : MonoBehaviour
     {
        
         _rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
-        if(animator == null)
-        {
-            Debug.Log("애니메이터 안 들어감");
-        }
+        animationHandler = GetComponent<AnimationHandler>();
+        statHandler = GetComponent<StatHandler>();
     }
 
     protected virtual void Start()
@@ -69,7 +67,7 @@ public class BaseController : MonoBehaviour
 
     private void Movement(Vector2 direction)
     {
-        direction = direction * 5;
+        direction = direction * statHandler.Speed;
         if(knockbackDuration > 0.0f)
         {
             direction *= 0.2f;
@@ -77,6 +75,7 @@ public class BaseController : MonoBehaviour
         }
 
         _rigidbody.velocity = direction;
+        animationHandler.Move(direction);
     }
 
     private void Rotate(Vector2 direction)
