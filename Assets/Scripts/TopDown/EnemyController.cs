@@ -56,9 +56,6 @@ public class EnemyController : BaseController
 
             movementDirection = direction;
         }
-
-
-
     }
 
     protected Vector2 DirectionToTarget()
@@ -66,10 +63,10 @@ public class EnemyController : BaseController
         return (target.position - transform.position).normalized;
     }
 
-
-
-
-
-
+    public override void Death()
+    {
+        base.Death();
+        enemyManager.RemoveEnemyOnDeath(this);
+    }
 
 }

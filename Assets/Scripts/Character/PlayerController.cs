@@ -41,9 +41,14 @@ public class PlayerController : BaseController
             StartCoroutine(JumpEffect());
             
         }
-
-
         isAttacking = Input.GetMouseButton(0);
+    }
+
+    public override void Death()
+    {
+        base.Death();
+        gameManager.GameOver();
+
     }
 
 
