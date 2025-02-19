@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PlayerController : BaseController
 {
+    private GameManager gameManager;
     private Camera camera;
 
-    protected override void Start()
-    {
-        base.Start();
 
+    public void Init(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
         camera = Camera.main;
     }
+
 
     // ¡∂¿€≈∞
     protected override void HandleAction()

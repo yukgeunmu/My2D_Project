@@ -20,6 +20,13 @@ public class GameManager : MonoBehaviour
     private int bestScore = 0;
     private const string BestScoreKey = "BestScore";
 
+    public PlayerController player { get; private set; }
+    private ResourceController _playerResourceController;
+
+    [SerializeField] private int currentWaveIndex = 0;
+
+    private EnemyManager enemyManager;
+
 
     private void Awake()
     {
@@ -37,6 +44,13 @@ public class GameManager : MonoBehaviour
         }
 
         bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
+
+        player = FindObjectOfType<PlayerController>();
+        player.Init(this);
+
+        enemyManager = GetComponentInChildren<EnemyManager>();
+        enemyManager.Init(this);
+
     }
 
     private void Start()
@@ -47,22 +61,50 @@ public class GameManager : MonoBehaviour
 
     public void UpdateScore()
     {
-
-        if (bestScore < cureentScore)
+        if(SceneManager.GetActiveScene().name == "FlappyBirdScene")
         {
-            bestScore = cureentScore;
+            if (bestScore < cureentScore)
+            {
+                bestScore = cureentScore;
+            }
+
+            PlayerPrefs.SetInt(BestScoreKey, bestScore);
+
+            uiManager.gameOverUI.SetScore(cureentScore, bestScore);
         }
 
-        PlayerPrefs.SetInt(BestScoreKey, bestScore);
-
-        uiManager.gameOverUI.SetScore(cureentScore, bestScore);
     }
 
 
 
     public void StartGame()
     {
-        uiManager.SetPlayGame();
+        if (SceneManager.GetActiveScene().name == "FlappyBirdScene") uiManager.SetPlayGame();
+        else if(SceneManager.GetActiveScene().name == "TopDownScene") StartNextWave();
+    }
+
+    void StartNextWave()
+    {
+        currentWaveIndex += 1;
+        enemyManager.StartWave(1 + currentWaveIndex / 5);
+    }
+
+    public void EndOfWave()
+    {
+        StartNextWave();
+    }
+
+    public void GameOver()
+    {
+        enemyManager.StopWave();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            StartGame();
+        }
     }
 
 

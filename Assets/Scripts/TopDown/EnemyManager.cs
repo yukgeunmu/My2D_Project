@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     private Coroutine waveRoutine;
+    private GameManager gameManager;
 
     [SerializeField] private List<GameObject> enemyPrefabs; // 积己且 利 橇府普 府胶飘
     [SerializeField] private List<Rect> spawnAreas; // 利阑 积己且 康开 府胶飘
@@ -16,6 +17,11 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private float timeBetweenSpawns = 0.2f;
     [SerializeField] private float timeBetweenWaves = 1f;
+
+    public void Init(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
 
     public void StartWave(int waveCount)
     {
@@ -82,16 +88,6 @@ public class EnemyManager : MonoBehaviour
             Gizmos.DrawCube(center, size);
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            StartWave(1);
-        }
-    }
-
-
 
 
 }
