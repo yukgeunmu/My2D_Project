@@ -45,11 +45,18 @@ public class GameManager : MonoBehaviour
 
         bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
 
-        player = FindObjectOfType<PlayerController>();
-        player.Init(this);
+        if (SceneManager.GetActiveScene().name == "TopDownScene" || SceneManager.GetActiveScene().name == "MainScene")
+        {
+            player = FindObjectOfType<PlayerController>();
+            player.Init(this);
+        }
 
-        enemyManager = GetComponentInChildren<EnemyManager>();
-        enemyManager.Init(this);
+        if (SceneManager.GetActiveScene().name == "TopDownScene")
+        {
+            enemyManager = GetComponentInChildren<EnemyManager>();
+            enemyManager.Init(this);
+        }
+
 
     }
 
