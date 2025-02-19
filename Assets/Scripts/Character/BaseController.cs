@@ -9,7 +9,7 @@ public class BaseController : MonoBehaviour
     protected StatHandler statHandler;
 
     [SerializeField] private SpriteRenderer characterRenderer;
-    [SerializeField] private Transform weaponPivor;
+    [SerializeField] private Transform weaponPivot;
 
 
     protected Vector2 movementDirection = Vector2.zero;
@@ -26,12 +26,26 @@ public class BaseController : MonoBehaviour
 
     private bool isJumping = false;
 
+
+    [SerializeField] public WeaponHandler WeaponPrefab;
+    protected WeaponHandler weaponHandler;
+
+    protected bool isAttacking;
+    private float timeSinceLastAttack = float.MaxValue;
+
+
+
     protected virtual void Awake()
     {
        
         _rigidbody = GetComponent<Rigidbody2D>();
         animationHandler = GetComponent<AnimationHandler>();
         statHandler = GetComponent<StatHandler>();
+
+        if (WeaponPrefab != null)
+            weaponHandler = Instantiate(WeaponPrefab, weaponPivot);
+        else
+            weaponHandler = GetComponentInChildren<WeaponHandler>();
     }
 
     protected virtual void Start()
@@ -43,6 +57,7 @@ public class BaseController : MonoBehaviour
     {
         HandleAction();
         Rotate(lookDirection);
+        HandleAttackDelay();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -88,10 +103,12 @@ public class BaseController : MonoBehaviour
 
         characterRenderer.flipX = isLeft;
 
-        if(weaponPivor != null)
+        if(weaponPivot != null)
         {
-            weaponPivor.rotation = Quaternion.Euler(0, 0, rotZ);
+            weaponPivot.rotation = Quaternion.Euler(0, 0, rotZ);
         }
+
+        weaponHandler?.Rotate(isLeft);
 
     }
 
@@ -138,7 +155,31 @@ public class BaseController : MonoBehaviour
         isJumping = false;
     }
 
- 
+
+    private void HandleAttackDelay()
+    {
+        if (weaponHandler == null)
+            return;
+
+        if (timeSinceLastAttack <= weaponHandler.Delay)
+        {
+            timeSinceLastAttack += Time.deltaTime;
+        }
+
+        if (isAttacking && timeSinceLastAttack > weaponHandler.Delay)
+        {
+            timeSinceLastAttack = 0;
+            Attack();
+        }
+    }
+
+    protected virtual void Attack()
+    {
+        if (lookDirection != Vector2.zero)
+            weaponHandler?.Attack();
+    }
+
+
 
 
 
