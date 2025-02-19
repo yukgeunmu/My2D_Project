@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverUI : BaseUI
 {
@@ -10,8 +11,12 @@ public class GameOverUI : BaseUI
     public override void Init(UIManager uiManager)
     {
         base.Init(uiManager);
-        resultScoreText = transform.Find("ResultScoreText").GetComponent<TextMeshProUGUI>();
-        bestText = transform.Find("BestText").GetComponent<TextMeshProUGUI>();
+        if (SceneManager.GetActiveScene().name == "FlappyBirdScene")
+        {
+            resultScoreText = transform.Find("ResultScoreText").GetComponent<TextMeshProUGUI>();
+            bestText = transform.Find("BestText").GetComponent<TextMeshProUGUI>();
+        }
+
     }
 
     public void SetScore(int currentScore, int bestScore)

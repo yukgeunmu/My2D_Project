@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour
 {
-    public GameObject panel;
+ 
 
-    private void Awake()
-    {
-        panel = transform.Find("EngelPanel").GetComponent<GameObject>();
-        if (panel == null)
-            Debug.LogError("Panal is Null");
-    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            panel.SetActive(true);
+           
         }
     }
 
@@ -25,7 +20,7 @@ public class NPCController : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            panel.SetActive(false);
+            
         }    
     }
 }

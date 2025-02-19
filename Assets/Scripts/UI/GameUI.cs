@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameUI : BaseUI
 {
@@ -16,7 +17,11 @@ public class GameUI : BaseUI
     {
         base.Init(uiManager);
 
-        scoreText = transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        if(SceneManager.GetActiveScene().name == "FlappyBirdScene")
+        {
+            scoreText = transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        }
+
     }
 
     public void SetUI(int currentscore)

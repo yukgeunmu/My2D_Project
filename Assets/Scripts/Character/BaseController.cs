@@ -76,7 +76,7 @@ public class BaseController : MonoBehaviour
     {
         // Atna2 탄젠트 높이와 밑변을 알면 각을 구할 수 있음. 그리고 거기에 Rad2Deg를 곱해서 라디안을 도로 변환
         float rotZ = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        // 90도만 크면 캐릭터 방향이 반대로 돌아간걸로 볼 수 있음. 그런데 이러면 밑에 방향은 안되는데;;
+        // 90도만 크면 캐릭터 방향이 반대로 돌아간걸로 볼 수 있음.
 
         bool isLeft = Mathf.Abs(rotZ) > 90f;
 
