@@ -28,6 +28,14 @@ public class RangeWeaponHandler : WeaponHandler
     [SerializeField] private Color projectileColor;
     public Color ProjectileColor { get { return projectileColor; } }
 
+    private ProjecttileManager projecttileManager;
+
+
+    private void Start()
+    {
+        base.Start();
+        projecttileManager = ProjecttileManager.Instance;
+    }
     public override void Attack()
     {
         base.Attack();
@@ -37,7 +45,7 @@ public class RangeWeaponHandler : WeaponHandler
 
         float minAngle = -(numberOfProjectilesPerShot / 2f) * projectilesAngleSpace;
 
-
+        
         for (int i = 0; i < numberOfProjectilesPerShot; i++)
         {
             float angle = minAngle + projectilesAngleSpace * i;
@@ -50,6 +58,10 @@ public class RangeWeaponHandler : WeaponHandler
 
     private void CreateProjectile(Vector2 _lookDirection, float angle)
     {
+        projecttileManager.ShootBullet(
+            this,
+            projectileSpawnPosition.position,
+            RotateVector2(_lookDirection, angle));
 
     }
     private static Vector2 RotateVector2(Vector2 v, float degree)

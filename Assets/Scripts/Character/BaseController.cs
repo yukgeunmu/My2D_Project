@@ -158,6 +158,7 @@ public class BaseController : MonoBehaviour
 
     private void HandleAttackDelay()
     {
+
         if (weaponHandler == null)
             return;
 
@@ -166,8 +167,9 @@ public class BaseController : MonoBehaviour
             timeSinceLastAttack += Time.deltaTime;
         }
 
+        // 여기서 공격키 받으면 공격
         if (isAttacking && timeSinceLastAttack > weaponHandler.Delay)
-        {
+        {           
             timeSinceLastAttack = 0;
             Attack();
         }
@@ -175,8 +177,11 @@ public class BaseController : MonoBehaviour
 
     protected virtual void Attack()
     {
+
         if (lookDirection != Vector2.zero)
+        {        
             weaponHandler?.Attack();
+        }
     }
 
 
