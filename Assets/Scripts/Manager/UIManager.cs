@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 public enum UIState
 {
@@ -16,7 +17,7 @@ public enum UIState
 
 public class UIManager : MonoBehaviour
 {
-    public HoemUI homeUI;
+    public HomeUI homeUI;
     public GameUI gameUI;
     public GameOverUI gameOverUI;
     private UIState currentState;
@@ -28,23 +29,30 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
 
-        homeUI = GetComponentInChildren<HoemUI>(true);
+        homeUI = GetComponentInChildren<HomeUI>(true);
         homeUI.Init(this);
         gameUI = GetComponentInChildren<GameUI>(true);
         gameUI.Init(this);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         gameOverUI.Init(this);
 
-        if(isFirst)
+        if(SceneManager.GetActiveScene().name == "FlappyBirdScene")
+        {
+            if (isFirst)
+            {
+                ChangeState(UIState.Home);
+                isFirst = false;
+            }
+            else
+            {
+                ChangeState(UIState.Game);
+                PlayerFlappy player = FindObjectOfType<PlayerFlappy>();
+                player.isTime = true;
+            }
+        }
+        else if(SceneManager.GetActiveScene().name == "MainScene")
         {
             ChangeState(UIState.Home);
-            isFirst = false;
-        }
-        else
-        {
-            ChangeState(UIState.Game);
-            PlayerFlappy player = FindObjectOfType<PlayerFlappy>();
-            player.isTime = true;
         }
 
     }

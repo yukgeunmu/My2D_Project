@@ -4267,7 +4267,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 410782526}
+  - {fileID: 980273183}
   m_Father: {fileID: 2097198715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4299,7 +4301,7 @@ GameObject:
   - component: {fileID: 410782528}
   - component: {fileID: 410782527}
   m_Layer: 5
-  m_Name: EngelPanel
+  m_Name: AngelPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4319,7 +4321,7 @@ RectTransform:
   m_Children:
   - {fileID: 1577529029}
   - {fileID: 474965493}
-  m_Father: {fileID: 1481091419}
+  m_Father: {fileID: 336734675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4634,8 +4636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321145dcd5f85e445b34a6ad8663fffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterRenderer: {fileID: 0}
-  weaponPivor: {fileID: 0}
+  uiManager: {fileID: 0}
+  npcName: 0
 --- !u!1 &509252655
 GameObject:
   m_ObjectHideFlags: 0
@@ -5199,7 +5201,7 @@ RectTransform:
   m_Children:
   - {fileID: 1885131223}
   - {fileID: 1481022363}
-  m_Father: {fileID: 1481091419}
+  m_Father: {fileID: 336734675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5699,9 +5701,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 410782526}
-  - {fileID: 980273183}
+  m_Children: []
   m_Father: {fileID: 2097198715}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -8301,8 +8301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321145dcd5f85e445b34a6ad8663fffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterRenderer: {fileID: 0}
-  weaponPivor: {fileID: 0}
+  uiManager: {fileID: 0}
+  npcName: 1
 --- !u!1 &2097198711
 GameObject:
   m_ObjectHideFlags: 0
