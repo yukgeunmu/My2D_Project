@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -40,12 +41,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-      
+
     }
+
 
     public void UpdateScore()
     {
-        if(bestScore < cureentScore)
+
+        if (bestScore < cureentScore)
         {
             bestScore = cureentScore;
         }

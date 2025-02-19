@@ -16,7 +16,8 @@ public class ExitButton : MonoBehaviour
     public void MainScene()
     {
         SceneManager.LoadScene("MainScene");
-        UIManager.isFirst = true;         
+        UIManager.isFirst = true;
+        Time.timeScale = 1;
     }
 
 }
