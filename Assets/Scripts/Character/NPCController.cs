@@ -23,7 +23,6 @@ public class NPCController : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Debug.Log("»£√‚");
             switch(npcName)
             {
                 case NPCName.Angel:

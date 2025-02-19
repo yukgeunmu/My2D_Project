@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject gameOverPanel;
 
-    private static bool isFirst = true;
+    public static bool isFirst = true;
 
     private void Awake()
     {

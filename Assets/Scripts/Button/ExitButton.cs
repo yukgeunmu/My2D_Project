@@ -7,6 +7,7 @@ public class ExitButton : MonoBehaviour
 {
     public GameObject panel;
 
+
     public void CrossePanel()
     {
         panel.SetActive(false);
@@ -15,6 +16,7 @@ public class ExitButton : MonoBehaviour
     public void MainScene()
     {
         SceneManager.LoadScene("MainScene");
+        UIManager.isFirst = true;         
     }
 
 }
