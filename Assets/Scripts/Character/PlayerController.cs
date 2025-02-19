@@ -34,6 +34,13 @@ public class PlayerController : BaseController
             lookDirection = lookDirection.normalized;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(JumpEffect());
+            
+        }
+
+
         isAttacking = Input.GetMouseButton(0);
     }
 

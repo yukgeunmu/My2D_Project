@@ -59,10 +59,7 @@ public class BaseController : MonoBehaviour
         Rotate(lookDirection);
         HandleAttackDelay();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(JumpEffect());
-        }
+
     }
 
     protected virtual void FixedUpdate()
@@ -119,7 +116,7 @@ public class BaseController : MonoBehaviour
     }
 
     
-    IEnumerator JumpEffect()
+    public IEnumerator JumpEffect()
     {
 
         if (isJumping)
