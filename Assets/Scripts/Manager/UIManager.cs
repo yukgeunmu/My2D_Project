@@ -78,6 +78,15 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void ChangeWave(int currentWave)
+    {
+        gameUI.UpdateWaveText(currentWave);
+    }
+
+    public void ChangePlayerHP(float currentHP, float maxHP)
+    {
+        gameUI.UpdateHPSlider(currentHP / maxHP);
+    }
 
     public void ChangeState(UIState state)
     {

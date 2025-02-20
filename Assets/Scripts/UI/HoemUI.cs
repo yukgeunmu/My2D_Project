@@ -33,6 +33,9 @@ public class HomeUI : BaseUI
         }
         else if(inOut == 1)
         {
+            if (angelPanel == null || demonPanel == null)
+                return;
+
             angelPanel.SetActive(false);
             demonPanel.SetActive(false);
         }

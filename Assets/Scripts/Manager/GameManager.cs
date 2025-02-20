@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int currentWaveIndex = 0;
 
-    private EnemyManager enemyManager;
 
 
     private void Awake()
@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
         if (gameManager == null)
         {
             gameManager = this;
-            DontDestroyOnLoad(gameManager);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else if(gameManager != null)
@@ -45,15 +44,20 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "TopDownScene" || SceneManager.GetActiveScene().name == "MainScene")
         {
+            
             player = FindObjectOfType<PlayerController>();
             player.Init(this);
+
+            _playerResourceController = player.GetComponent<ResourceController>();
+            _playerResourceController.RemoveHealthChangeEvent(uiManager.ChangePlayerHP); // 제거
+            _playerResourceController.AddHealthChangeEvent(uiManager.ChangePlayerHP); // 다시 추가
         }
 
-        if (SceneManager.GetActiveScene().name == "TopDownScene")
-        {
-            enemyManager = GetComponentInChildren<EnemyManager>();
-            enemyManager.Init(this);
-        }
+        //if (SceneManager.GetActiveScene().name == "TopDownScene")
+        //{
+        //    enemyManager = GetComponentInChildren<EnemyManager>();
+        //    enemyManager.Init(this);
+        //}
 
 
     }
@@ -82,9 +86,10 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (SceneManager.GetActiveScene().name == "FlappyBirdScene") uiManager.SetPlayGame();
+
+        if (SceneManager.GetActiveScene().name == "FlappyBirdScene") uiManager.SetPlayGame();      
         else if (SceneManager.GetActiveScene().name == "TopDownScene")
-        {      
+        {
             uiManager.SetPlayGame();
             StartNextWave();
         }
@@ -93,9 +98,10 @@ public class GameManager : MonoBehaviour
 
     void StartNextWave()
     {
-       
         currentWaveIndex += 1;
-        enemyManager.StartWave(1 + currentWaveIndex / 5);
+        uiManager.ChangeWave(currentWaveIndex);
+
+        EnemyManager.instance.StartWave(1 + currentWaveIndex / 5);
     }
 
     public void EndOfWave()
@@ -105,7 +111,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        enemyManager.StopWave();
+        EnemyManager.instance.StopWave();
+        uiManager.SetGameOver();
     }
 
 

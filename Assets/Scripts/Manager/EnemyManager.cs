@@ -7,6 +7,8 @@ public class EnemyManager : MonoBehaviour
     private Coroutine waveRoutine;
     private GameManager gameManager;
 
+    public  static EnemyManager instance;
+
     [SerializeField] private List<GameObject> enemyPrefabs; // 생성할 적 프리팹 리스트
     [SerializeField] private List<Rect> spawnAreas; // 적을 생성할 영역 리스트
     [SerializeField] private Color gizmoColor = new Color(1, 0, 0, 0.3f); // 기즈모 색상
@@ -18,14 +20,20 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float timeBetweenSpawns = 0.2f;
     [SerializeField] private float timeBetweenWaves = 1f;
 
-    public void Init(GameManager gameManager)
+
+    private void Awake()
     {
-        this.gameManager = gameManager;
+        instance = this;
     }
 
+
+    //public void Init(GameManager gameManager)
+    //{
+    //    this.gameManager = gameManager;
+    //}
+
     public void StartWave(int waveCount)
-    {
-        Debug.Log("적 생성");
+    {      
         if (waveRoutine != null)
             StopCoroutine(waveRoutine);
         waveRoutine = StartCoroutine(SpawnWave(waveCount));
@@ -73,7 +81,13 @@ public class EnemyManager : MonoBehaviour
         // 적 생성 및 리스트에 추가
         GameObject spawnedEnemy = Instantiate(randomPrefab, new Vector3(randomPosition.x, randomPosition.y), Quaternion.identity);
         EnemyController enemyController = spawnedEnemy.GetComponent<EnemyController>();
-        enemyController.Init(this, gameManager.player.transform);
+
+        if (GameManager.Instance.player == null)
+        {
+            Debug.LogError("게임메니저가 널이다!!!");
+        }
+
+        enemyController.Init(this, GameManager.Instance.player.transform);
 
         activeEnemies.Add(enemyController);
     }
@@ -96,7 +110,7 @@ public class EnemyManager : MonoBehaviour
     {
         activeEnemies.Remove(enemy);
         if (enemySpawnComplite && activeEnemies.Count == 0)
-            gameManager.EndOfWave();
+            GameManager.Instance.EndOfWave();
     }
 
 

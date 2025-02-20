@@ -13,6 +13,7 @@ public class ProjecttileManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
     }
 
     public void ShootBullet(RangeWeaponHandler rangeWeaponHandler, Vector2 startPostiion, Vector2 direction)
@@ -28,12 +29,20 @@ public class ProjecttileManager : MonoBehaviour
 
     public void CreateImpactParticlesAtPostion(Vector3 position, RangeWeaponHandler weaponHandler)
     {
+        if (impactParticleSystem == null)
+        {
+            Debug.LogError(" impactParticleSystem이 존재하지 않습니다! 재시작 후 씬이 로드되면서 삭제된 것 같습니다.");
+            return;
+        }
+
         impactParticleSystem.transform.position = position;
         ParticleSystem.EmissionModule em = impactParticleSystem.emission;
         em.SetBurst(0, new ParticleSystem.Burst(0, Mathf.Ceil(weaponHandler.BulletSize * 5)));
         ParticleSystem.MainModule mainModule = impactParticleSystem.main;
         mainModule.startSpeedMultiplier = weaponHandler.BulletSize * 10f;
         impactParticleSystem.Play();
+
+
     }
 
 }

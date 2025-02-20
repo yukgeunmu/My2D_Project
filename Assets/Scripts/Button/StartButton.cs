@@ -25,6 +25,11 @@ public class StartButton : MonoBehaviour
         GameManager.Instance.StartGame();
     }
 
+    public void StartTopDownSceneLoad()
+    {
+        SceneManager.LoadScene("TopDownScene");
+    }
+
     
 
 
