@@ -25,6 +25,7 @@ public class EnemyManager : MonoBehaviour
 
     public void StartWave(int waveCount)
     {
+        Debug.Log("Àû »ý¼º");
         if (waveRoutine != null)
             StopCoroutine(waveRoutine);
         waveRoutine = StartCoroutine(SpawnWave(waveCount));
@@ -37,6 +38,7 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnWave(int waveCount)
     {
+        
         enemySpawnComplite = false;
         yield return new WaitForSeconds(timeBetweenWaves);
         for (int i = 0; i < waveCount; i++)

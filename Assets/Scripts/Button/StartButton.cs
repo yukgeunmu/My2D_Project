@@ -13,10 +13,19 @@ public class StartButton : MonoBehaviour
 
     public void StartGameButton()
     {
-        PlayerFlappy player = FindObjectOfType<PlayerFlappy>();
-        GameManager.Instance.StartGame();
-        player.isTime = true;
+
+            PlayerFlappy player = FindObjectOfType<PlayerFlappy>();
+            GameManager.Instance.StartGame();
+            player.isTime = true;
+        
     }
+
+    public void StartGameButtonTopDown()
+    {
+        GameManager.Instance.StartGame();
+    }
+
+    
 
 
 

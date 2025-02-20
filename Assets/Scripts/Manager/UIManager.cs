@@ -22,8 +22,6 @@ public class UIManager : MonoBehaviour
     public GameOverUI gameOverUI;
     private UIState currentState;
 
-    public GameObject gameOverPanel;
-
     public static bool isFirst = true;
 
     private void Awake()
@@ -54,12 +52,24 @@ public class UIManager : MonoBehaviour
         {
             ChangeState(UIState.Home);
         }
+        else if(SceneManager.GetActiveScene().name == "TopDownScene")
+        {
+            if(isFirst)
+            {
+                ChangeState(UIState.Home);
+                isFirst = false;
+            }
+            else
+            {
+                ChangeState(UIState.Game);
+            }
+        }
 
     }
 
     public void SetPlayGame()
     {
-        ChangeState(UIState.Game); 
+        ChangeState(UIState.Game);
     }
 
     public void SetGameOver()

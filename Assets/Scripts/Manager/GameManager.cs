@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager { get => uiManager; }
     public static GameManager Instance { get => gameManager; }
 
-    public bool isFirst = false;
-
     public int cureentScore = 0;
 
     private int bestScore = 0;
@@ -82,16 +80,20 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-
     public void StartGame()
     {
         if (SceneManager.GetActiveScene().name == "FlappyBirdScene") uiManager.SetPlayGame();
-        else if(SceneManager.GetActiveScene().name == "TopDownScene") StartNextWave();
+        else if (SceneManager.GetActiveScene().name == "TopDownScene")
+        {      
+            uiManager.SetPlayGame();
+            StartNextWave();
+        }
+
     }
 
     void StartNextWave()
     {
+       
         currentWaveIndex += 1;
         enemyManager.StartWave(1 + currentWaveIndex / 5);
     }
@@ -106,13 +108,6 @@ public class GameManager : MonoBehaviour
         enemyManager.StopWave();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            StartGame();
-        }
-    }
 
 
     public void AddScore(int score)
