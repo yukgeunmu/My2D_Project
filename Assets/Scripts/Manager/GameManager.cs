@@ -17,12 +17,15 @@ public class GameManager : MonoBehaviour
     public int cureentScore = 0;
 
     private int bestScore = 0;
+
     private const string BestScoreKey = "BestScore";
+    private const string BestWaveKey = "BestWave";
 
     public PlayerController player { get; private set; }
     private ResourceController _playerResourceController;
 
     [SerializeField] private int currentWaveIndex = 0;
+    private int bestWave = 0;
 
 
 
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour
         }
 
         bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
+        bestWave = PlayerPrefs.GetInt(BestWaveKey, 0);
 
         if (SceneManager.GetActiveScene().name == "TopDownScene" || SceneManager.GetActiveScene().name == "MainScene")
         {
@@ -82,6 +86,19 @@ public class GameManager : MonoBehaviour
             uiManager.gameOverUI.SetScore(cureentScore, bestScore);
         }
 
+        if(SceneManager.GetActiveScene().name == "TopDownScene")
+        {
+            if(bestWave < currentWaveIndex)
+            {
+                bestWave = currentWaveIndex;
+            }
+
+            PlayerPrefs.SetInt(BestWaveKey, bestWave);
+
+            uiManager.gameOverUI.SetWaveScore(currentWaveIndex, bestWave);
+
+        }
+
     }
 
     public void StartGame()
@@ -113,6 +130,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyManager.instance.StopWave();
         uiManager.SetGameOver();
+        gameManager.UpdateScore();
     }
 
 
